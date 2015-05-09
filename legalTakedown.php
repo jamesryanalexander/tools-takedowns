@@ -388,7 +388,7 @@
 				</form>
 			</div>
 		</div>
-			<?php include dirname( __FILE__ ) . '/../include/lcapage.php'; ?>
+			<?php include dirname( __FILE__ ) . '/../project-include/page.php'; ?>
 		</div>
 	</body>
 </html>
