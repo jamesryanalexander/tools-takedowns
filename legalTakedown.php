@@ -63,10 +63,10 @@
 	    	} else {
 	    		$('.commonsonly').hide();
 	    	}
-	    	if ( $('select#project option:selected').val() == 'enwiki' || $('select#project option:selected').val() == 'wmfwiki') {
-	    		$('.enwikionly').show();
+	    	if ( $('select#project option:selected').val() != 'commons') {
+	    		$('.notcommons').show();
 	    	} else {
-	    		$('.enwikionly').hide();
+	    		$('.notcommons').hide();
 	    	}
 	    })
 
@@ -186,6 +186,7 @@
 										<option value='commons' selected>Wikimedia Commons</option>
 										<option value='enwiki'>English Wikipedia</option>
 										<option value='wmfwiki'>Wikimedia Foundation</option>
+										<option value='cywiki'>Welsh Wikipedia</option>
 									</select>
 								</td>
 							</tr>
@@ -340,7 +341,7 @@
 									<input id='takedown-commons-title' name='takedown-commons-title' type='text' value='' size='50' required/> <img class='showTooltip' src='/images/20px-Help.png' title='The title to use for the Commons announcement.'/>
 								</td>
 							</tr>
-							<tr class='enwikionly' style="display:none;">
+							<tr class='notcommons' style="display:none;">
 								<td class='lca-label'>
 									<label for='takedown-enwiki-title'>Takedown Title</label>
 								</td>
