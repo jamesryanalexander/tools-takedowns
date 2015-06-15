@@ -16,112 +16,146 @@
 		
 
 		//validate
-	    $("#takedown-form1").validate();
+		$("#takedown-form1").validate();
 
 		//initialize datepicker
 	   var $datepicker = $('#takedown-date').pikaday({
-	        firstDay: 1,
-	        minDate: new Date('2000-01-01'),
-	        maxDate: new Date('2020-12-31'),
-	        yearRange: [2000,2020]
-	    });
+			firstDay: 1,
+			minDate: new Date('2000-01-01'),
+			maxDate: new Date('2020-12-31'),
+			yearRange: [2000,2020]
+		});
 
 	   //From http://www.alessioatzeni.com/blog/simple-tooltip-with-jquery-only-text/
 	   $('.showTooltip').hover(function(){
-	        // Hover over code
-	        var title = $(this).attr('title');
-	        $(this).data('tipText', title).removeAttr('title');
-	        $('<p class="tooltip"></p>')
-	        .text(title)
-	        .appendTo('body')
-	        .fadeIn('slow');
-	    }, function() {
-	        // Hover out code
-	        $(this).attr('title', $(this).data('tipText'));
-	        $('.tooltip').remove();
-	    }).mousemove(function(e) {
-	        var mousex = e.pageX + 20; //Get X coordinates
-	        var mousey = e.pageY + 10; //Get Y coordinates
-	        $('.tooltip')
-	        .css({ top: mousey, left: mousex })
-	    });
+			// Hover over code
+			var title = $(this).attr('title');
+			$(this).data('tipText', title).removeAttr('title');
+			$('<p class="tooltip"></p>')
+			.text(title)
+			.appendTo('body')
+			.fadeIn('slow');
+		}, function() {
+			// Hover out code
+			$(this).attr('title', $(this).data('tipText'));
+			$('.tooltip').remove();
+		}).mousemove(function(e) {
+			var mousex = e.pageX + 20; //Get X coordinates
+			var mousey = e.pageY + 10; //Get Y coordinates
+			$('.tooltip')
+			.css({ top: mousey, left: mousex })
+		});
 
-	    //remove browser tooltip by removing title on hover
-	    $('.showTooltip[title]').mouseover(function () {
-	        $this = $(this);
-	        $this.data('title', $this.attr('title'));
-	        // Using null here wouldn't work in IE, but empty string will work just fine.
-	        $this.attr('title', '');
-	    }).mouseout(function () {
-	        $this = $(this);
-	        $this.attr('title', $this.data('title'));
-	    });
+		//remove browser tooltip by removing title on hover
+		$('.showTooltip[title]').mouseover(function () {
+			$this = $(this);
+			$this.data('title', $this.attr('title'));
+			// Using null here wouldn't work in IE, but empty string will work just fine.
+			$this.attr('title', '');
+		}).mouseout(function () {
+			$this = $(this);
+			$this.attr('title', $this.data('title'));
+		});
 
-	    $('select#project').change( function() {
-	    	if ( $('select#project option:selected').val() == 'commons' ) {
-	    		$('.commonsonly').show();
-	    	} else {
-	    		$('.commonsonly').hide();
-	    	}
-	    	if ( $('select#project option:selected').val() != 'commons') {
-	    		$('.notcommons').show();
-	    	} else {
-	    		$('.notcommons').hide();
-	    	}
-	    })
+		$('select#project').change( function() {
+			if ( $('select#project option:selected').val() == 'commons' ) {
+				$('.commonsonly').show();
+			} else {
+				$('.commonsonly').hide();
+			}
+			if ( $('select#project option:selected').val() != 'commons') {
+				$('.notcommons').show();
+			} else {
+				$('.notcommons').hide();
+			}
+		})
 
-	    $('select#content-type').change( function() {
-	    	if ( $('select#content-type option:selected').val() == ( 'file' ) || $('select#content-type option:selected').val() == ( 'both' ) ) {
-	    		$('.fileonly').show();
-	    	} else {
-	    		$('.fileonly').hide();
-	    	}
-	    	if ( $('select#content-type option:selected').val() == ( 'text' ) || $('select#content-type option:selected').val() == ( 'both' ) ) {
-	    		$('.textonly').show();
-	    	} else {
-	    		$('.textonly').hide();
-	    	}
-	    })
+		$('select#content-type').change( function() {
+			if ( $('select#content-type option:selected').val() == ( 'file' ) || $('select#content-type option:selected').val() == ( 'both' ) ) {
+				$('.fileonly').show();
+			} else {
+				$('.fileonly').hide();
+			}
+			if ( $('select#content-type option:selected').val() == ( 'text' ) || $('select#content-type option:selected').val() == ( 'both' ) ) {
+				$('.textonly').show();
+			} else {
+				$('.textonly').hide();
+			}
+		})
 
 
-	    var filetakedownwrapper = $("#takedownfiles");
-	    var userwrapper = $("#takedownusers");
-	    var filetakedownadder = $("#takedownmorefiles");
-	    var useradder = $("#notifymoreusers");
-	    var uploadewrapper = $('#uploadfiles');
-	    var uploadadder = $('#uploadmorefiles');
+		var filetakedownwrapper = $("#takedownfiles");
+		var filetakedownadder = $("#takedownmorefiles");
 
-	    $(filetakedownadder).click(function (e)
-	    {
+		var pagetakedownwrapper = $("#takedownpages");
+		var pagetakedownadder = $("#takedownmorepages");
 
-	    	$(filetakedownwrapper).append('<div><input class=\'files-affected\' name=\'files-affected[]\' value=\'\' type=\'text\' size=\'50\'/><img class=\'removefield\' src=\'/images/Emblem-multiply.svg\' width=\'20px\' title=\'remove field\'/></div>');
+		var copyrighturlwrapper = $("#originalurls");
+		var copyrighturladder = $("#morecopyrighturls");
 
-	    });
+		var userwrapper = $("#takedownusers");
+		var useradder = $("#notifymoreusers");
 
-	    $(useradder).click(function (e)
-	    {
+		var uploadewrapper = $('#uploadfiles');
+		var uploadadder = $('#uploadmorefiles');
 
-	    	$(userwrapper).append('<div><input class=\'involved-user\' name=\'involved-user[]\' value=\'\' type=\'text\' size=\'15\'/><img class=\'removefield\' src=\'/images/Emblem-multiply.svg\' width=\'20px\' title=\'remove field\'/></div>');
+		$(filetakedownadder).click(function (e)
+		{
 
-	    });
+			$(filetakedownwrapper).append('<div><input class=\'files-affected\' name=\'files-affected[]\' value=\'\' type=\'text\' size=\'50\'/><img class=\'removefield\' src=\'/images/Emblem-multiply.svg\' width=\'20px\' title=\'remove field\'/></div>');
 
-	    $(uploadadder).click(function (e)
-	    {
+		});
 
-	    	$(uploadewrapper).append('<div>Supporting file (scanned takedown etc) <input name=\'takedown-files[]\' type=\'file\' /><img class=\'removefield\' src=\'/images/Emblem-multiply.svg\' width=\'20px\' title=\'remove field\'/></div>');
+		$(pagetakedownadder).click(function (e)
+		{
 
-	    });
+			$(pagetakedownwrapper).append('<div><input class=\'pages-affected\' name=\'pages-affected[]\' value=\'\' type=\'text\' size=\'50\'/><img class=\'removefield\' src=\'/images/Emblem-multiply.svg\' width=\'20px\' title=\'remove field\'/></div>');
 
-	    $("body").on("click",".removefield", function(e) {
+		});
 
-	    	$(this).parent('div').remove();
+		$(copyrighturladder).click(function (e)
+		{
 
-	    });
+			$(copyrighturlwrapper).append('<div><input class=\'original-urls\' name=\'original-urls[]\' value=\'\' type=\'text\' size=\'50\'/><img class=\'removefield\' src=\'/images/Emblem-multiply.svg\' width=\'20px\' title=\'remove field\'/></div>');
 
-	    $('#takedown-commons-title').keyup(function(e) {
-	    	var chr = $(this).val();
-	    	$('#takedown-wmf-title').val('DMCA ' + chr);
-	    });
+		});
+
+
+		$(useradder).click(function (e)
+		{
+
+			$(userwrapper).append('<div><input class=\'involved-user\' name=\'involved-user[]\' value=\'\' type=\'text\' size=\'15\'/><img class=\'removefield\' src=\'/images/Emblem-multiply.svg\' width=\'20px\' title=\'remove field\'/></div>');
+
+		});
+
+		$(uploadadder).click(function (e)
+		{
+
+			$(uploadewrapper).append('<div>Supporting file (scanned takedown etc) <input name=\'takedown-files[]\' type=\'file\' /><img class=\'removefield\' src=\'/images/Emblem-multiply.svg\' width=\'20px\' title=\'remove field\'/></div>');
+
+		});
+
+		$("body").on("click",".removefield", function(e) {
+
+			$(this).parent('div').remove();
+
+		});
+
+		$('#takedown-commons-title').keyup(function(e) {
+			var chr = $(this).val();
+			$('#takedown-wmf-title').val('DMCA ' + chr);
+		});
+
+
+		$('#takedown-form1').submit(function() {
+			if ( $('select#content-type').val() != ( 'file' ) && $('select#content-type').val() != ( 'both' ) ) {
+				$('input.fileonly').attr('name', null);
+			}
+
+			if ( $('select#content-type').val() != ( 'text' ) && $('select#content-type').val() != ( 'both' ) ) {
+				$('input.textonly').attr('name', null);
+			}
+		});
 
 
 
@@ -281,7 +315,7 @@
 								</td>
 								<td class='lca-input'>
 									<select id='sender-country' name='sender-country' value=''>
-									<?php include dirname( __FILE__ ) . '/../include/countrySelect.php'; ?>
+									<?php include dirname( __FILE__ ) . '/../core-include/countrySelect.php'; ?>
 									</select>
 								</td>
 							</tr>
@@ -310,10 +344,10 @@
 									<label for='files-affected'> File(s) affected </label>
 								</td>
 								<td>
-								<div id="takedownfiles">
-									<span>One file name per line (no file:), press + to add x to remove. </span> <br />
-									<div><input id='files-affected' name='files-affected[]' value='' type='text' size='50' required/> <img id='takedownmorefiles' src='/images/List-add.svg' width='20px' title='add a file field'/></div>
-								</div>
+									<div id="takedownfiles">
+										<span style='font-size:0.7em; color:red;'>One file name per line (no file:) (+ to add more &amp; x to remove). </span> <br />
+										<div><input class='fileonly' id='files-affected' name='files-affected[]' value='' type='text' size='50' required/> <img id='takedownmorefiles' src='/images/List-add.svg' width='20px' title='add a file field'/></div>
+									</div>
 								</td>
 							</tr>
 							<tr class='textonly' style='display:none;'>
@@ -321,8 +355,21 @@
 									<label for='pages-affected'> Page(s) affected </label>
 								</td>
 								<td>
-									<input id='pages-affected' name='pages-affected' value='' type='text' size='50' required/> <img class='showTooltip' src='/images/20px-Help.png' title='Pages affected by takedown, seperated by commas. Will take up to 5 then ignore the rest.'/>
-									<br /> <span style='font-size:0.7em; color:red;'>Pleaes list page names (seperated by comma) including any prefixes . </span>
+									<div id="takedownpages">
+										<span style='font-size:0.7em; color:red;'>One page name per line including any prefixes (+ to add more &amp; x to remove). </span> <br />
+										<div><input class ='textonly' id='pages-affected' name='pages-affected[]' value='' type='text' size='50' required/> <img id='takedownmorepages' src='/images/List-add.svg' width='20px' title='add another page'/></div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<label for='copyrightedurls'> Location of original work </label>
+								</td>
+								<td>
+									<div id="originalurls">
+										<span style='font-size:0.7em; color:red;'>One URL per line (+ to add more &amp; x to remove). </span> <br />
+										<div><input id='original-urls' name='original-urls[]' value='' type='text' size='50' required/> <img id='morecopyrighturls' src='/images/List-add.svg' width='20px' title='add another url'/></div>
+									</div>
 								</td>
 							</tr>
 							<tr>

@@ -69,13 +69,13 @@ $takedown_subject = !isset( $_POST['takedown-subject'] ) ? null : $_POST['takedo
 $takedown_text = !isset( $_POST['takedown-body'] ) ? null : $_POST['takedown-body'];
 $project_involved = !isset( $_POST['project'] ) ? null : $_POST['project'];
 
-if ( $project_involved == 'enwiki' ) {
+if ( $project_involved === 'enwiki' ) {
 	$linkbase = 'https://en.wikipedia.org';
-} elseif ( $project_involved == 'wmfwiki' ) {
+} elseif ( $project_involved === 'wmfwiki' ) {
 	$linkbase = 'https://wikimediafoundation.org';
-} elseif ( $project_involved == 'cywiki' {
+} elseif ( $project_involved === 'cywiki' ) {
 	$linkbase = 'https://cy.wikipedia.org'; 
-{ else {
+} else {
 	$linkbase = 'https://commons.wikimedia.org';
 }
 
@@ -88,7 +88,7 @@ if ( isset( $_POST['ce-send'] ) && $_POST['ce-send'] === 'Yes' ) {
 }
 
 
-if ( !empty( $_POST['files-affected'] ) ) {
+if ( isset( $_POST['files-affected'] ) ) {
 	$filearray = $_POST['files-affected'];
 	// Error check for file prefix
 	foreach ($filearray as $key => $value) {
@@ -96,23 +96,35 @@ if ( !empty( $_POST['files-affected'] ) ) {
 			$filearray[$key] = substr( $value, 5 );
 		}
 	}
+} else {
+	$filearray = null;
 }
 
-if ( !empty( $_POST['pages-affected'] ) ) {
+if ( isset( $_POST['original-urls'] ) ) {
+	$originalurls = $_POST['original-urls'];
+} else {
+	$originalurls = null;
+}
+
+if ( isset( $_POST['pages-affected'] ) ) {
 	$pagesarray = $_POST['pages-affected'];
+} else {
+	$pagesarray = null;
 }
 
-if ( !empty( $filearray ) ) {
+if ( isset( $filearray ) ) {
 	foreach ( $filearray as $value ) {
-		$linksarray[] = $linkbase.'/wiki/File:'.$value;
+		$tdlinksarray[] = $linkbase.'/wiki/File:'.$value;
 	}
 }
 
-if ( !empty( $pagesarray ) ) {
+if ( isset( $pagesarray ) ) {
 	foreach ( $pagesarray as $value ) {
-		$linksarray[] = $linkbase.'/wiki/'.$value;
+		$tdlinksarray[] = $linkbase.'/wiki/'.$value;
 	}
 }
+
+
 
 
 // Set up file uploads if they exist.
@@ -136,6 +148,7 @@ if ( is_uploaded_file( $_FILES['takedown-files']['tmp_name'][0] ) ) {
 
 
 // Set up initial post data for Chilling Effects
+
 $CE_post_data = array (
 	'authentication_token' => $config['CE_apikey'],
 	'notice' => array (
@@ -145,7 +158,7 @@ $CE_post_data = array (
 		'date_sent' => $takedown_date,
 		'source' => $takedown_method,
 		'action_taken' => $action_taken,
-		'body' => $takedown_text,
+		'body' => nl2br( $takedown_text ),
 		'tag_list' => 'wikipedia, wikimedia',
 		'jurisdiction_list' => 'US, CA',
 	),
@@ -176,14 +189,22 @@ $CE_post_entities = array (
 
 $CE_post_data['notice']['entity_notice_roles_attributes'] = $CE_post_entities;
 
-if ( !empty( $linksarray ) ) {
+if ( !empty( $tdlinksarray ) ) {
 
-	foreach ( $linksarray as $key => $value ) {
+	foreach ( $tdlinksarray as $key => $value ) {
 		$urlarray[] = array ( 'url' => $value );
 	}
-	$CE_post_works[] = array (
-		'infringing_urls_attributes' => $urlarray,
-	);
+
+	$CE_post_works['infringing_urls_attributes'] = $urlarray;
+}
+
+if ( !empty( $originalurls ) ) {
+
+	foreach ($originalurls as $key => $value) {
+		$originalurlarray[] = array ( 'url' => $value );
+	}
+
+	$CE_post_works['copyrighted_urls_attributes'] = $originalurlarray;
 }
 
 $CE_post_data['notice']['works_attributes'] = $CE_post_works;
@@ -379,7 +400,7 @@ echo PHP_EOL.
 								<table>
 									<tr>
 										<td><?php
-	if ( $usertable['mwtoken'] && $project_involved == 'commons' ) {
+	if ( $usertable['mwtoken'] && $project_involved === 'commons' ) {
 		echo 'You are logged in with OAuth information, please make any edits necessary below and then click the button to the right to send the edit.     <input id="editdmcapage" type="button" value="send edit">';
 	} else {
 		echo 'We did not find your OAuth information, or this is not a Wikimedia Commons takedown. You can register using the link on the sidebar but for this time please use the links provided on the top of the page and paste the template in the edit box';
@@ -392,13 +413,13 @@ echo PHP_EOL.
 								</table>
 							</td>
 						</tr>
-						<?php if ( $project_involved == 'commons' ) : ?>
+						<?php if ( $project_involved === 'commons' ) { ?>
 						<tr>
 							<td>
 								If you are not using the automatic posting ( above ) please post the below text to the <u>BOTTOM</u> of the Wikimedia Commons DMCA Board at <?php echo '<a target="_blank" href="https://commons.wikimedia.org/wiki/Commons:Office_actions/DMCA_notices?action=edit">https://commons.wikimedia.org/wiki/Commons:DMCA</a>';?>
 							</td>
 						</tr>
-					<?php endif; ?>
+					<?php } ?>
 						<tr>
 							<td>
 								<textarea id='commonsdmcapost' name='commons-dmca-post' wrap='virtual' rows='18' cols='90' style='border:1px solid black;'>
@@ -423,7 +444,7 @@ Thank you! ~~~~ "
 								<table>
 									<tr>
 										<td><?php
-	if ( $usertable['mwtoken'] && $project_involved == 'commons' ) {
+	if ( $usertable['mwtoken'] && $project_involved === 'commons' ) {
 		echo 'You are logged in with OAuth information, please make any edits necessary below and then click the button to the right to send the edit.     <input id="editvppage" type="button" value="send edit">';
 	} else {
 		echo 'We did not find your OAuth information, or this is not a Wikimedia Commons takedown. You can register using the link on the sidebar but for this time please use the links provided on the top of the page and paste the template in the edit box';
@@ -436,7 +457,7 @@ Thank you! ~~~~ "
 								</table>
 							</td>
 						</tr>
-						<?php if ( $project_involved == 'commons' ) : ?>
+						<?php if ( $project_involved === 'commons' ) : ?>
 						<tr>
 							<td>
 								If you are not using the automatic posting ( above ) please post the below text to the Wikimedia Commons Village Pump at <a target='_blank' href='https://commons.wikimedia.org/wiki/Commons:Village_pump?action=edit&amp;section=new'>https://commons.wikimedia.org/wiki/Commons:Village_pump</a>
@@ -573,6 +594,14 @@ Sincerely,
 						</tr>
 						<tr>
 							<td>
+								Var dump of pagesarray
+							</td>
+							<td>
+								<textarea><?php echo !empty( $pagesarray ) ? var_dump( $pagesarray ) : ""?></textarea>
+							</td>
+						</tr>
+						<tr>
+							<td>
 								print of php array for CE
 							</td>
 							<td>
@@ -698,7 +727,7 @@ Sincerely,
 		$insert_strike_note = serialize( $strike_note );
 		$insert_ce_url = $locationURL;
 		$insert_filessent = serialize( $filessent );
-		$insert_files_affected = serialize( $linksarray );
+		$insert_files_affected = serialize( $tdlinksarray );
 
 		// do it
 
