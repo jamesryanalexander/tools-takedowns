@@ -195,7 +195,9 @@ if ( !empty( $tdlinksarray ) ) {
 		$urlarray[] = array ( 'url' => $value );
 	}
 
-	$CE_post_works['infringing_urls_attributes'] = $urlarray;
+	$CE_post_works[] = array (
+		'infringing_urls_attributes' => $urlarray,
+		);
 }
 
 if ( !empty( $originalurls ) ) {
@@ -204,7 +206,9 @@ if ( !empty( $originalurls ) ) {
 		$originalurlarray[] = array ( 'url' => $value );
 	}
 
-	$CE_post_works['copyrighted_urls_attributes'] = $originalurlarray;
+	$CE_post_works[] = array (
+		'copyrighted_urls_attributes' => $originalurlarray,
+		);
 }
 
 $CE_post_data['notice']['works_attributes'] = $CE_post_works;
