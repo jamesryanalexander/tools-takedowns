@@ -221,6 +221,7 @@
 										<option value='enwiki'>English Wikipedia</option>
 										<option value='wmfwiki'>Wikimedia Foundation</option>
 										<option value='cywiki'>Welsh Wikipedia</option>
+										<option value='enwiktionary'>English Wiktionary</option>
 									</select>
 								</td>
 							</tr>

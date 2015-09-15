@@ -75,6 +75,8 @@ if ( $project_involved === 'enwiki' ) {
 	$linkbase = 'https://wikimediafoundation.org';
 } elseif ( $project_involved === 'cywiki' ) {
 	$linkbase = 'https://cy.wikipedia.org'; 
+} elseif ( $project_involved === 'enwiktionary' ) {
+	$linkbase = 'https://en.wiktionary.org';
 } else {
 	$linkbase = 'https://commons.wikimedia.org';
 }
