@@ -156,7 +156,7 @@ $CE_post_data = array (
 		'date_sent' => $takedown_date,
 		'source' => $takedown_method,
 		'action_taken' => $action_taken,
-		'body' => nl2br( $takedown_text ),
+		'body' => $takedown_text,
 		'tag_list' => 'wikipedia, wikimedia',
 		'jurisdiction_list' => 'US, CA',
 	),
