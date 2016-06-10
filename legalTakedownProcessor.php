@@ -390,9 +390,9 @@ function edittalkpage(username,divid,responseid) {
 						<tr>
 							<td>
 								<textarea name='takedown-body-wmf' wrap='virtual' rows='18' cols='90' style='border:1px solid black;'><?php
-echo PHP_EOL.
+echo PHP_EOL."<div class='mw-code' style='white-space: pre; word-wrap: break-word;'><nowiki>".PHP_EOL.
 	$takedown_text.PHP_EOL.
-	"[[Category:DMCA ".date( "Y" )."]]";?>
+	"[[Category:DMCA ".date( "Y" )."]]".PHP_EOL."</nowiki></div>";?>
 								</textarea>
 							</td>
 						</tr>
