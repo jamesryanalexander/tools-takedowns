@@ -548,7 +548,7 @@ As a matter of policy and under appropriate circumstances, Wikimedia will block 
 
 If you would like to learn more about Wikimedia’s policies, please refer to the Wikimedia Terms of Use, available at [[wmf:Terms_of_use|Terms of use]], and the Wikimedia Legal Policies, available at [[m:Legal/Legal_Policies]].  More information on DMCA compliance may also be found at:
 
-* [http://www.chillingeffects.org/dmca512/faq http://www.chillingeffects.org/dmca512/faq]
+* [https://lumendatabase.org/topics/29 https://lumendatabase.org/topics/29]
 * [https://www.eff.org/issues/dmca https://www.eff.org/issues/dmca]
 * [http://www.copyright.gov/onlinesp/ http://www.copyright.gov/onlinesp/]
 
