@@ -391,8 +391,8 @@ function edittalkpage(username,divid,responseid) {
 							<td>
 								<textarea name='takedown-body-wmf' wrap='virtual' rows='18' cols='90' style='border:1px solid black;'><?php
 echo PHP_EOL."<div class='mw-code' style='white-space: pre; word-wrap: break-word;'><nowiki>".PHP_EOL.
-	$takedown_text.PHP_EOL.
-	"[[Category:DMCA ".date( "Y" )."]]".PHP_EOL."</nowiki></div>";?>
+	$takedown_text.PHP_EOL."</nowiki></div>".PHP_EOL.
+	"[[Category:DMCA ".date( "Y" )."]]";?>
 								</textarea>
 							</td>
 						</tr>
@@ -432,7 +432,7 @@ echo PHP_EOL."<div class='mw-code' style='white-space: pre; word-wrap: break-wor
 
 <?php
 echo "=== ".$commons_title." ===
-In compliance with the provisions of the US [[:en:Digital Millennium Copyright Act|Digital Millennium Copyright Act]] (DMCA), and at the instruction of the [[Wikimedia Foundation]]'s legal counsel, one or more files have been deleted from Commons.  Please note that this is an [[Commons:Office actions|official action of the WMF office]] which should not be undone. If you have valid grounds for a counter-claim under the DMCA, please contact me.".( !empty( $wmfwiki_title ) ? "The takedown can be read [[:wmf:".$wmfwiki_title."|here]]." : "" )."
+In compliance with the provisions of the US [[:en:Digital Millennium Copyright Act|Digital Millennium Copyright Act]] (DMCA), and at the instruction of the [[Wikimedia Foundation]]'s legal counsel, one or more files have been deleted from Commons.  Please note that this is an [[Commons:Office actions|official action of the WMF office]] which should not be undone. If you have valid grounds for a counter-claim under the DMCA, please contact me. ".( !empty( $wmfwiki_title ) ? "The takedown can be read [[:wmf:".$wmfwiki_title."|'''here''']]." : "" )."
 
 Affected file(s):
 ";
